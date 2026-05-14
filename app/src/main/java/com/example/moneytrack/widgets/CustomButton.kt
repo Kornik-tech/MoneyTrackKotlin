@@ -26,7 +26,7 @@ fun CustomButton(
         .fillMaxWidth().background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(15.dp)),
         onClick = onClick,
         shape = RoundedCornerShape(15.dp),
-        enabled = !disabled
+        enabled = disabled
     ) {
         Text(text = text, color = Color.White, fontSize = 18.sp)
         Icon(

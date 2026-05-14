@@ -15,19 +15,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.autofill.ContentType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.moneytrack.widgets.CustomButton
 import com.example.moneytrack.widgets.CustomTextField
 
 @Composable
-fun LoginForm() {
+fun LoginForm(
+    onDone: (String, String) -> Unit
+) {
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
 
-    Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+    val valid = remember(emailState.value, passwordState.value) {
+        emailState.value.trim().isNotEmpty() && passwordState.value.trim().isNotEmpty()
+    }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
         Text(text = "EMAIL", style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(horizontal = 3.dp, vertical = 9.dp))
         CustomTextField(
             value = emailState.value,
+            autoFillType = ContentType.EmailAddress,
             onValueChange = {emailState.value = it},
             placeholder = "name@example.com",
             leadingIcon = Icons.Outlined.Person
@@ -38,16 +47,19 @@ fun LoginForm() {
         Text(text = "PASSWORD", style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(horizontal = 3.dp, vertical = 9.dp))
         CustomTextField(
             value = passwordState.value,
+            autoFillType = ContentType.Password,
             onValueChange = { passwordState.value = it },
             placeholder = "••••••••",
-            leadingIcon = Icons.Default.Lock
+            leadingIcon = Icons.Default.Lock,
+            visualTransformation = PasswordVisualTransformation()
         )
 
         Spacer(modifier = Modifier.height(30.dp))
 
         CustomButton(
             text = "Log in",
-            onClick = {},
+            disabled = valid,
+            onClick = {onDone(emailState.value, passwordState.value)},
             leadingIcon = Icons.AutoMirrored.Filled.KeyboardArrowRight
         )
     }

@@ -7,7 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.moneytrack.screens.LoginScreen
+import com.example.moneytrack.screens.home.HomeScreen
+import com.example.moneytrack.screens.login.LoginScreen
 
 @Composable
 fun MoneyTrackNavigation(innerPadding: PaddingValues) {
@@ -20,6 +21,10 @@ fun MoneyTrackNavigation(innerPadding: PaddingValues) {
     ) {
         composable(MoneyTrackScreens.LoginScreen.name) {
             LoginScreen(navController)
+        }
+
+        composable (MoneyTrackScreens.HomeScreen.name) {
+            HomeScreen(navController)
         }
     }
 }
