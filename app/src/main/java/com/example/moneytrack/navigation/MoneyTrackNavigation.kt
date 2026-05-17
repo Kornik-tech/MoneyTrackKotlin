@@ -9,15 +9,23 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.moneytrack.screens.home.HomeScreen
 import com.example.moneytrack.screens.login.LoginScreen
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 @Composable
 fun MoneyTrackNavigation(innerPadding: PaddingValues) {
     val navController = rememberNavController()
 
+    val startDestination = if (Firebase.auth.currentUser != null) {
+        MoneyTrackScreens.HomeScreen.name
+    } else {
+        MoneyTrackScreens.LoginScreen.name
+    }
+
     NavHost(
         modifier = Modifier.padding(innerPadding),
         navController = navController,
-        startDestination = MoneyTrackScreens.LoginScreen.name
+        startDestination = startDestination
     ) {
         composable(MoneyTrackScreens.LoginScreen.name) {
             LoginScreen(navController)

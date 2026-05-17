@@ -7,6 +7,8 @@ val Primary = Color(0xFF3B82F6)
 val BackgroundDark = Color(0xFF0B0F19)
 val OnBackgroundDark = Color(0xFF111827)
 
+val GlassBorder = Color(0xFF989FAB)
+
 
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
